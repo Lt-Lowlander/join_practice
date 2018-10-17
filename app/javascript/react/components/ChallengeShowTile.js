@@ -1,12 +1,12 @@
 import React from 'react';
 
+let full_name;
 const ChallengeShowTile = (props) => {
+  full_name = `${props.first} ${props.last}`
   return(
-    <div>
-      <b>
-        {props.title}
-      </b>
-    </div>
+    <li>
+        {full_name}
+    </li>
   )
 }
 
