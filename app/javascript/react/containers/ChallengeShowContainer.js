@@ -55,6 +55,8 @@ class ChallengeShowContainer extends  Component {
           name={task.name}
           desc={task.description}
           due={task.due_date}
+          match={task.user_id}
+          workers={this.state.group}
         />
       )
     });
