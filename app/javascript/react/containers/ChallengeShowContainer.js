@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import ChallengeShowTile from '../components/ChallengeShowTile';
+import TaskShowTile from '../components/TaskShowTile';
 
 class ChallengeShowContainer extends  Component {
   constructor(props) {
     super(props)
     this.state = {
       challengeInfo: {},
-      group: []
+      group: [],
+      chores: []
     }
   }
 
@@ -27,7 +29,8 @@ class ChallengeShowContainer extends  Component {
     .then(body => {
       this.setState({
         challengeInfo: body,
-        group: body.users
+        group: body.users,
+        chores: body.tasks
       })
     })
   }
@@ -41,6 +44,17 @@ class ChallengeShowContainer extends  Component {
           id={member.id}
           first={member.first_name}
           last={member.last_name}
+        />
+      )
+    });
+    let assignments = this.state.chores.map(task => {
+      return (
+        <TaskShowTile
+          key={task.id}
+          id={task.id}
+          name={task.name}
+          desc={task.description}
+          due={task.due_date}
         />
       )
     });
@@ -62,6 +76,14 @@ class ChallengeShowContainer extends  Component {
           <ul>
             {team}
           </ul>
+        </div>
+        <div className="task-list">
+          <b>
+            Project Tasks
+          </b>
+          <ol>
+            {assignments}
+          </ol>
         </div>
       </div>
     )

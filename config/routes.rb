@@ -11,11 +11,16 @@ Rails.application.routes.draw do
       resources :challenges do
         resources :collaborations
         resources :users
+        resources :tasks do
+          resources :users
+        end
       end
 
       resources :users do
         resources :collaborations
-        resources :challenges
+        resources :challenges do
+          resources :tasks
+        end
       end
     end
   end
