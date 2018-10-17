@@ -3,10 +3,11 @@ import ChallengeShowTile from '../components/ChallengeShowTile';
 
 class ChallengeShowContainer extends  Component {
   constructor(props) {
-      super(props)
-      this.state = {
-        challengeInfo: {}
-      }
+    super(props)
+    this.state = {
+      challengeInfo: {},
+      group: []
+    }
   }
 
   componentDidMount(){
@@ -24,23 +25,46 @@ class ChallengeShowContainer extends  Component {
     })
     .then(response => response.json())
     .then(body => {
-debugger
       this.setState({
-        challengeInfo: body
-        
+        challengeInfo: body,
+        group: body.users
       })
     })
   }
 
   render(){
-    const chalDets = this.state.challengeInfo;
-
+    let chalDets = this.state.challengeInfo;
+    let team = this.state.group.map(member => {
+      return(
+        <ChallengeShowTile
+          key={member.id}
+          id={member.id}
+          first={member.first_name}
+          last={member.last_name}
+        />
+      )
+    });
     return(
       <div>
-        yoskibroski
+        <div className="project-deets">
+          <b>
+            {chalDets.title}
+          </b>
+          <p>
+            {chalDets.description}
+          </p>
+          <p></p>
+        </div>
+        <div className="member-list">
+          <b>
+            Team Members
+          </b>
+          <ul>
+            {team}
+          </ul>
+        </div>
       </div>
     )
   }
-
 }
 export default ChallengeShowContainer;
